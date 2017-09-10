@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.15.4",
     "page": "^1.7.1",
+    "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-dom-server": "0.0.5",
     "youtube-player": "^5.4.0"
