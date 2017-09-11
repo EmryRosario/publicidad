@@ -25,7 +25,9 @@ export default class Home extends Component {
 
       function onPlayerStateChange(event) {
         if (event.data == 0) {
-          document.location.href = 'https://www.google.com.do'
+          let directionButton = document.createElement('a')
+          directionButton.href = 'https://www.google.com.do'
+          directionButton.click()
         }
       }
   })
