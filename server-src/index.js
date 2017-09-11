@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server'
 import Layout from './views/layout'
 import React from 'react'
 
-const PORT = process.env.PORT || 5052
+const PORT = process.env.PORT || 9966
 const app = express()
 
 app.use(express.static('app'))

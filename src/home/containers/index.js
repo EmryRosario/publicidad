@@ -1,26 +1,51 @@
 import React, {Component} from 'react'
 import YouTubePlayer from 'youtube-player'
+import youtube from 'youtube-iframe-player'
 
 export default class Home extends Component {
   componentDidMount () {
 
-    let player = YouTubePlayer('player', {
-          height: '360',
+    youtube.init(function() {
+      console.log('API Loaded');
+
+      var youtubePlayer = youtube.createPlayer('player', {
           width: '640',
-          videoId: 'ZXjG_pBzOdY'
-   })
+          height: '360',
+          videoId: 'ZXjG_pBzOdY',
+          playerVars: { 'autoplay': 1, 'controls': 1 },
+          events: {
+              'onReady': playerReady,
+              'onStateChange': onPlayerStateChange
+          }
+      });
 
-   player
-   .on('ready', (event) => {
-     event.target.playVideo()
-   })
+      function playerReady(event) {
+          youtubePlayer.playVideo();
+      }
 
-   player
-   .on('stateChange', (event) => {
-     if (event.data == 0) {
-       document.location.href = 'https://www.google.com.do'
-     }
-   })
+      function onPlayerStateChange(event) {
+        if (event.data == 0) {
+          document.location.href = 'https://www.google.com.do'
+        }
+      }
+  })
+  //   let player = YouTubePlayer('player', {
+  //         height: '360',
+  //         width: '640',
+  //         videoId: 'ZXjG_pBzOdY'
+  //  }
+   //
+  //  player
+  //  .on('ready', (event) => {
+  //    event.target.playVideo()
+  //  })
+   //
+  //  player
+  //  .on('stateChange', (event) => {
+  //    if (event.data == 0) {
+  //      document.location.href = 'https://www.google.com.do'
+  //    }
+  //  })
 
   }
   render () {
