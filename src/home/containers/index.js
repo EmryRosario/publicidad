@@ -17,7 +17,7 @@ export default class Home extends Component {
               'onReady': playerReady,
               'onStateChange': onPlayerStateChange
           }
-      });
+      })
 
       function playerReady(event) {
           youtubePlayer.playVideo();
