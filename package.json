@@ -10,13 +10,17 @@
   "author": "RcSistemas",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.18.2",
     "express": "^4.15.4",
     "mysql": "^2.14.1",
     "page": "^1.7.1",
+    "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-dom-server": "0.0.5",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "yo-yo": "^1.4.1",
     "youtube-iframe-player": "^1.0.1",
     "youtube-player": "^5.4.0"

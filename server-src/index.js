@@ -22,4 +22,20 @@ app.get(routes, (req, res) => {
 })
 
 
+app.get('/api/advertisements', (req, res) => {
+  res.json([
+    {id: '1', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '2', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '3', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '4', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '5', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '6', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '7', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '8', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '9', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+    {id: '10', nombre:'sadsad', empresa:'sadsdas', tipo:'sadsadsa', desde:'sadsafdg', hasta:'sdsadsd', estado:'sadsadass'},
+
+  ])
+})
+
 app.listen(PORT, () => console.log(`Server Listen on port ${PORT}`))
