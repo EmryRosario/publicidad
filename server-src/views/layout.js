@@ -12,6 +12,7 @@ export default class Layout extends Component {
           <meta http-equiv={'Cache-Control'} content={'no-cache, mustrevalidate'} />
           <meta http-equiv={'Pragma'} content={'no-cache'} />
           <link rel="stylesheet" href={'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'} />
+          <link rel="stylesheet" href={'/style.css'} />
         </head>
         <body>
           <div id={'app'} />
