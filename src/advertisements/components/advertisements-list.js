@@ -15,10 +15,15 @@ class AdvertisementsList extends Component {
           <td>{ad.id}</td>
           <td>{ad.nombre}</td>
           <td>{ad.empresa}</td>
-          <td>{ad.tipo}</td>
+          <td><i className={ad.tipo} aria-hidden={'true'} /></td>
           <td>{ad.desde}</td>
           <td>{ad.hasta}</td>
           <td>{ad.estado}</td>
+          <td>
+          <a><i className={'fa  fa-eye margin-icon text-success'} aria-hidden={'true'} /></a>
+          <a><i className={'fa fa-pencil margin-icon text-success'} aria-hidden={'true'} /></a>
+          <a><i className={'fa fa-times margin-icon text-danger'} aria-hidden={'true'} /></a>
+          </td>
         </tr>)
     }
     return (

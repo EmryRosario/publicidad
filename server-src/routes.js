@@ -1,3 +1,6 @@
-export default [
-  '/:name', '/'
-]
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ['/:name', '/'];

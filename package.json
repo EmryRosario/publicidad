@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --progress -p && node server"
+    "start": "npm run build-server && webpack --progress -p && node server",
+    "build-server": "babel server-src --out-dir server"
   },
   "author": "RcSistemas",
   "license": "ISC",
   "dependencies": {
+    "alertifyjs": "^1.11.0",
     "axios": "^0.16.2",
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.7",
@@ -17,8 +19,10 @@
     "extract-text-webpack-plugin": "^3.0.1",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
+    "knex": "^0.13.0",
     "less": "^2.7.2",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.2",
     "page": "^1.7.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",

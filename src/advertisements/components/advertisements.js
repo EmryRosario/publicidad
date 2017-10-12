@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import request from 'axios'
 import Searcher from './searcher'
 import AdvertisementsList from './advertisements-list'
+import CreateButton from './create-button'
+import CreateModal from './create-modal'
 
 class Advertisements extends Component {
   constructor (props) {
@@ -41,8 +43,13 @@ class Advertisements extends Component {
   render () {
     return (
       <div>
-        <Searcher handleAdsList = {this.handleAdsList} />
-        <table className={'table table-hover'}>
+        <div className={'col-xs-12 pull-right'}>
+          <Searcher handleAdsList = {this.handleAdsList} />
+          <CreateButton />
+          <CreateModal target={'create-advertisements-modal'} operation={1} />
+        </div>
+
+        <table className={'table table-condensed table-hover'}>
           <thead>
             <tr>
               <th>{'Codigo'}</th>
@@ -52,6 +59,7 @@ class Advertisements extends Component {
               <th>{'Desde'}</th>
               <th>{'Hasta'}</th>
               <th>{'estado'}</th>
+              <th>{' '}</th>
             </tr>
           </thead>
           <AdvertisementsList ads={this.state.ads} />

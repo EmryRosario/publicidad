@@ -12,13 +12,8 @@ class Searcher extends Component {
   }
   render () {
     return (
-      <div className='col-sm-12'>
-        <div className='col-sm-12 col-md-4 pull-right form-inline'>
-          <div className={'form-group'}>
-            <label><i className={'fa fa-search'} aria-hidden={'true'} /></label>
+      <div className={'form-group'}>
             <input className='form-control' type='text' value={this.state.searchText} onChange={this.handleChange} />
-          </div>
-        </div>
       </div>
 
     )
