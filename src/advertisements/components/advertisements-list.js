@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import CommercialModal from './create-modal'
 
 class AdvertisementsList extends Component {
   constructor (props) {
@@ -20,9 +21,17 @@ class AdvertisementsList extends Component {
           <td>{ad.hasta}</td>
           <td>{ad.estado}</td>
           <td>
-          <a><i className={'fa  fa-eye margin-icon text-success'} aria-hidden={'true'} /></a>
-          <a><i className={'fa fa-pencil margin-icon text-success'} aria-hidden={'true'} /></a>
-          <a><i className={'fa fa-times margin-icon text-danger'} aria-hidden={'true'} /></a>
+            <a data-toggle={'modal'} data-target={`#show-advertisements-modal-${ad.id}`}><i className={'fa  fa-eye margin-icon text-success'}
+             aria-hidden={'true'} />
+            </a>
+
+            <a data-toggle={'modal'} data-target={`#edit-advertisements-modal-${ad.id}`}><i className={'fa fa-pencil  text-warning'}
+             aria-hidden={'true'} />
+            </a>
+         </td>
+          <td>
+            <CommercialModal target={`edit-advertisements-modal-${ad.id}`} adId={ad.id} operation={2} />
+            <CommercialModal target={`show-advertisements-modal-${ad.id}`} adId={ad.id} operation={3} />
           </td>
         </tr>)
     }

@@ -45,10 +45,17 @@ app.get('/api/types', (req, res) => {
 app.post('/api/commercial', (req, res) => {
   let commercial = req.body
 
-  console.log(req.params, req.body, req.query)
   connection.saveCommercial(commercial)
-  .then(() => res.json(req.params, req.body, req.query))
-  .catch(() => res.json(req.params, req.body, req.query))
+  .then((result) => res.json(result))
+  .catch((error) => res.json(error))
+})
+
+app.put('/api/commercial', (req, res) => {
+  let commercial = req.body
+  connection.updateCommercial(commercial)
+  .then((result) => res.json(result))
+  .catch((error) => res.json(error))
+
 })
 
 app.listen(PORT, () => console.log(`Server Listen on port ${PORT}`))

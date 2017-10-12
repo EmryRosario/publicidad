@@ -52,17 +52,21 @@ class create extends Component {
 
             <div className='form-group'>
               <label htmlFor='txtName'>{'Nombre'}</label>
-              <input type='text' name={'name'} className='form-control' onChange={this.props.inputHandleChange} value={this.props.name} />
+              <input type='text' name={'name'} className={'form-control'}
+              disabled={this.props.operation == 3}
+              onChange={this.props.inputHandleChange} value={this.props.name} />
             </div>
 
             <div className='from-group'>
               <label htmlFor='txtDescription'>{'Descripción'}</label>
-              <textarea name={'description'}   onChange={this.props.inputHandleChange}  rows='4' className='form-control' value={this.props.description} />
+              <textarea name={'description'}   onChange={this.props.inputHandleChange}
+              disabled={this.props.operation == 3}
+                rows='4' className='form-control' value={this.props.description} />
             </div>
 
             <div className='form-group'>
               <label htmlFor='cbType'>{'Tipo'}</label>
-              <select  name={'type'} value={this.props.type} onChange={this.props.inputHandleChange} className='form-control'>
+              <select disabled={this.props.operation == 3}  name={'type'} value={this.props.type} onChange={this.props.inputHandleChange} className='form-control'>
                 <option key='x' value='x'>{'Seleccione tipo de anuncio...'}</option>
                 {this.state.types.map((type) => (<option key={type.id} value={type.id}>{type.descripcion}</option>))}
               </select>
@@ -73,7 +77,8 @@ class create extends Component {
           <div className={'col-sm-12 col-md-6'}>
             <div className='form-group'>
               <label htmlFor='cbBusiness'>{'Patrocinador'}</label>
-              <select   name={'business'} value={this.props.business} onChange={this.props.inputHandleChange} className={'form-control'}>
+              <select disabled={this.props.operation == 3}
+                name={'business'} value={this.props.business} onChange={this.props.inputHandleChange} className={'form-control'}>
                 <option value='x' key={'x'}>{'Seleccione  negocio...'}</option>
                 {this.state.business.length > 0 ?
                   this.state.business.map((business) => (<option key={business.id} value={business.id}>{business.nombre}</option>)) :
@@ -83,18 +88,35 @@ class create extends Component {
 
              <div className='form-group'>
                <label htmlFor='txtSince'>{'Desde'}</label>
-               <input type='time' name={'since'} onChange={this.props.inputHandleChange} value={this.props.since} className='form-control' />
+               <input type='time' name={'since'}
+               disabled={this.props.operation == 3}
+                onChange={this.props.inputHandleChange} value={this.props.since} className='form-control' />
              </div>
 
              <div className='form-group'>
                <label htmlFor='txtUntil'>{'Hasta'}</label>
-               <input value={this.props.until} name={'until'} onChange={this.props.inputHandleChange} type='time' className='form-control'  />
+               <input value={this.props.until} name={'until'}
+               disabled={this.props.operation == 3}
+                onChange={this.props.inputHandleChange} type='time' className='form-control'  />
+             </div>
+
+             <div className={`form-group ${this.props.operation == 1 ? ' hidden' : ''}`}>
+                <label>{'Estado'}</label>
+                <select name={'state'} value={this.props.state || 'x'}
+                disabled={this.props.operation == 3}
+                 onChange={this.props.inputHandleChange} className={'form-control'}>
+                    <option value='x'>{'Selecione estado del anuncio...'}</option>
+                    <option value={'1'}>{'Activo'}</option>
+                    <option value={'2'}>{'Inactivo'}</option>
+                </select>
              </div>
           </div>
 
 
          <div className={'form-group'}>
-           <textarea name={'comment' } onChange={this.props.inputHandleChange}  rows='4' className='form-control' placeHolder={'Comentario...'} value={this.props.comment} />
+           <textarea name={'comment' } onChange={this.props.inputHandleChange}  rows='4' className='form-control'
+           disabled={this.props.operation == 3}
+            placeHolder={'Comentario...'} value={this.props.comment} />
          </div>
 
   </form>
