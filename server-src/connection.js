@@ -9,7 +9,7 @@ class Connection {
     this.connection = mysql.createConnection(config)
   }
 
-  getAdvertisements (id) {
+  getAdvertisements (id, text) {
     let connection = this.connection
     let idConditional
     if (id) {
@@ -17,17 +17,18 @@ class Connection {
     } else {
       idConditional = ''
     }
+    let query = `SELECT anuncios.id, anuncios.nombre,
+      empresas.nombre AS empresa, empresas.id AS idEmpresa, anuncios.estado, anuncios.tipo AS tipoId,  codigotablas.icono AS tipo,
+       anuncios.desde, anuncios.hasta, anuncios.estado,
+       anuncios.comentario, anuncios.descripcion from anuncios,
+        empresas, codigotablas WHERE
+         anuncios.idempresa = empresas.id
+         AND codigotablas.idtabla = 1
+         AND codigotablas.id = anuncios.tipo
+         ${idConditional}`
 
     return new Promise(function(resolve, reject) {
-      connection.query(`SELECT anuncios.id, anuncios.nombre,
-        empresas.nombre AS empresa, empresas.id AS idEmpresa, anuncios.estado, anuncios.tipo AS tipoId,  codigotablas.icono AS tipo,
-         anuncios.desde, anuncios.hasta, anuncios.estado,
-         anuncios.comentario, anuncios.descripcion from anuncios,
-          empresas, codigotablas WHERE
-           anuncios.idempresa = empresas.id
-           AND codigotablas.idtabla = 1
-           AND codigotablas.id = anuncios.tipo
-           ${idConditional}`, function (error, results, fields) {
+      connection.query(query, function (error, results, fields) {
       if (error) return reject(error)
       resolve(results)
       })

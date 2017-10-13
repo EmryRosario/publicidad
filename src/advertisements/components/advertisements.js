@@ -22,16 +22,22 @@ class Advertisements extends Component {
     let options = {
       method: 'GET',
       url: '/api/advertisements',
-      json: true,
-      params: {
-        text
-      }
+      json: true
     }
     request(options)
     .then((response) => {
-      console.log(response)
+      let ads
+      if (text) {
+        text = text.toLowerCase()
+        ads = response.data.filter(f => (f.empresa.toLowerCase().search(text) > -1 ||
+        f.id.toString().search(text) > -1 || f.idEmpresa.toString().search(text) > -1 || f.comentario.toLowerCase().search(text) > -1 ||
+        f.descripcion.toLowerCase().search(text) > -1
+       ))
+     } else {
+       ads = response.data
+     }
       this.setState({
-        ads: response.data
+        ads
       })
     })
   }
