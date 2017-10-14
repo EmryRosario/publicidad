@@ -47,7 +47,8 @@ class createModal extends Component {
       }
       if (!commercial.name || !commercial.description || !commercial.type ||
         !commercial.since || !commercial.until || !commercial.comment ||
-        !commercial.business || commercial.business == 'x' || commercial.type == 'x') {
+        !commercial.business || commercial.business == 'x' || commercial.type == 'x' ||
+        commercial.since > commercial.until) {
           return alertify.error('Por favor completar todos los campos para continuar.')
         }
 
