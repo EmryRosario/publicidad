@@ -48,13 +48,13 @@ class Advertisements extends Component {
 
   render () {
     return (
-      <div>
-        <div className={'col-xs-12 pull-right'}>
+      <div className='panel panel-info'>
+        <div className={'col-xs-12 pull-right panel-heading'}>
           <Searcher handleAdsList = {this.handleAdsList} />
           <CreateButton />
           <CreateModal target={'create-advertisements-modal'} operation={1} />
         </div>
-
+        <div className={'panel-body'}></div>
         <table className={'table table-condensed table-hover'}>
           <thead>
             <tr>

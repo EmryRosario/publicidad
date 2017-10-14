@@ -13,7 +13,7 @@ class Searcher extends Component {
   render () {
     return (
       <div className={'form-group'}>
-            <input className='form-control' type='text' value={this.state.searchText} onChange={this.handleChange} />
+            <input className='form-control' placeholder={'Buscar...'} type='text' value={this.state.searchText} onChange={this.handleChange} />
       </div>
 
     )
