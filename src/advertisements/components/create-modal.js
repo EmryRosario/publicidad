@@ -62,6 +62,7 @@ class createModal extends Component {
       .then(() => {
         this.closeModal()
         alertify.success('El anuncio fue registrado correctamente.')
+        this.props.getAds()
       })
       .catch((error) => {
         console.log(error)
@@ -131,6 +132,7 @@ class createModal extends Component {
       .then(() => {
         this.closeModal()
         alertify.success('El anuncio fue modificado correctamente.')
+        this.props.getAds()
       })
       .catch((error) => {
         console.log(error)
@@ -142,12 +144,15 @@ class createModal extends Component {
   }
 
   submit () {
+
     switch (this.props.operation) {
       case 1:
         this.saveCommercial()
+
         break
       case 2:
         this.updateCommercial()
+
         break
       case 3:
         this.closeModal()

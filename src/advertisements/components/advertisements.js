@@ -52,7 +52,7 @@ class Advertisements extends Component {
         <div className={'col-xs-12 pull-right panel-heading'}>
           <Searcher handleAdsList = {this.handleAdsList} />
           <CreateButton />
-          <CreateModal target={'create-advertisements-modal'} operation={1} />
+          <CreateModal getAds={this.getAds} target={'create-advertisements-modal'} operation={1} />
         </div>
         <div className={'panel-body'}></div>
         <table className={'table table-condensed table-hover'}>
@@ -68,7 +68,7 @@ class Advertisements extends Component {
               <th>{' '}</th>
             </tr>
           </thead>
-          <AdvertisementsList ads={this.state.ads} />
+          <AdvertisementsList getAds={this.getAds} ads={this.state.ads} />
         </table>
       </div>
     )
