@@ -58,4 +58,12 @@ app.put('/api/commercial', (req, res) => {
 
 })
 
+app.get('/api/advertisements/hour', (req, res) => {
+  let conditional = req.query
+
+  connection.getAdByHour(conditional)
+  .then((result) => res.json(result))
+  .catch((error) => res.json(error))
+})
+
 app.listen(PORT, () => console.log(`Server Listen on port ${PORT}`))

@@ -8,6 +8,26 @@ class Connection {
   connect () {
     this.connection = mysql.createConnection(config)
   }
+  getAdByHour (condition) {
+    let connection = this.connection
+
+    let query = `
+    SELECT anuncios.* FROM  anuncios, empresas WHERE
+    anuncios.desde >= '${condition.since}' AND anuncios.hasta <= '${condition.until}'
+    AND anuncios.idempresa = empresas.id
+    AND empresas.id = ${condition.business}
+    AND anuncios.estado = 1
+    AND empresas.estado = 1
+    `
+
+    return new Promise(function(resolve, reject) {
+      connection.query(query, function (error, results, fields) {
+      if (error) return reject(error)
+      resolve(results)
+      })
+    })
+
+  }
 
   getAdvertisements (id, text) {
     let connection = this.connection
