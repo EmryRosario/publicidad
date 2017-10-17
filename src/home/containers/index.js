@@ -13,25 +13,21 @@ export default class Home extends Component {
     youtube.init(() => {
       this.getAdsByHour()
       .then((result) => {
-        console.log(result)
-        var youtubePlayer = youtube.createPlayer('player', {
-            width: '640',
-            height: '360',
-            videoId: result[0].descripcion,
-            playerVars: { 'autoplay': 1, 'controls': 1 },
-            events: {
-                'onReady': playerReady,
-                'onStateChange': onPlayerStateChange
+        if (result.length > 0) {
+          youtube.createPlayer('player', {
+          width: '640',
+          height: '360',
+          videoId: result[0].descripcion,
+          playerVars: { 'autoplay': 1, 'controls': 1 },
+          events: {
+              'onStateChange': onPlayerStateChange
+          }
+          })
+
+          function onPlayerStateChange(event) {
+            if (event.data == 0) {
+              document.location.href = 'https://www.google.com.do'
             }
-        })
-
-        function playerReady(event) {
-            youtubePlayer.playVideo();
-        }
-
-        function onPlayerStateChange(event) {
-          if (event.data == 0) {
-            document.location.href = 'https://www.google.com.do'
           }
         }
       })
