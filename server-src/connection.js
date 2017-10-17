@@ -13,13 +13,12 @@ class Connection {
 
     let query = `
     SELECT anuncios.* FROM  anuncios, empresas WHERE
-    anuncios.desde >= '${condition.since}' AND anuncios.hasta <= '${condition.until}'
+    '${condition.hour}' BETWEEN anuncios.desde AND anuncios.hasta
     AND anuncios.idempresa = empresas.id
     AND empresas.id = ${condition.business}
     AND anuncios.estado = 1
     AND empresas.estado = 1
     `
-
     return new Promise(function(resolve, reject) {
       connection.query(query, function (error, results, fields) {
       if (error) return reject(error)

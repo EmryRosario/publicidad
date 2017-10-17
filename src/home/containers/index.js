@@ -1,56 +1,78 @@
 import React, {Component} from 'react'
-import YouTubePlayer from 'youtube-player'
 import youtube from 'youtube-iframe-player'
+import request from 'axios'
 
 export default class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.getAdsByHour = this.getAdsByHour.bind(this)
+  }
+
   componentDidMount () {
 
-    youtube.init(function() {
-      console.log('API Loaded');
+    youtube.init(() => {
+      this.getAdsByHour()
+      .then((result) => {
+        console.log(result)
+        var youtubePlayer = youtube.createPlayer('player', {
+            width: '640',
+            height: '360',
+            videoId: result[0].descripcion,
+            playerVars: { 'autoplay': 1, 'controls': 1 },
+            events: {
+                'onReady': playerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        })
 
-      var youtubePlayer = youtube.createPlayer('player', {
-          width: '640',
-          height: '360',
-          videoId: 'ZXjG_pBzOdY',
-          playerVars: { 'autoplay': 1, 'controls': 1 },
-          events: {
-              'onReady': playerReady,
-              'onStateChange': onPlayerStateChange
-          }
-      })
-
-      function playerReady(event) {
-          youtubePlayer.playVideo();
-      }
-
-      function onPlayerStateChange(event) {
-        if (event.data == 0) {
-          document.location.href = 'https://www.google.com.do'
+        function playerReady(event) {
+            youtubePlayer.playVideo();
         }
-      }
-  })
-  //   let player = YouTubePlayer('player', {
-  //         height: '360',
-  //         width: '640',
-  //         videoId: 'ZXjG_pBzOdY'
-  //  }
-   //
-  //  player
-  //  .on('ready', (event) => {
-  //    event.target.playVideo()
-  //  })
-   //
-  //  player
-  //  .on('stateChange', (event) => {
-  //    if (event.data == 0) {
-  //      document.location.href = 'https://www.google.com.do'
-  //    }
-  //  })
+
+        function onPlayerStateChange(event) {
+          if (event.data == 0) {
+            document.location.href = 'https://www.google.com.do'
+          }
+        }
+      })
+    })
 
   }
+
+  getAdsByHour () {
+    let hour = this.getHour()
+
+    let business = this.props.business
+
+    let options = {
+      method: 'GET',
+      url: '/api/advertisements/hour',
+      json: true,
+      params: {
+        hour,
+        business
+      }
+    }
+
+    return new Promise(function(resolve, reject) {
+      request(options)
+      .then((result) =>  resolve(result.data))
+      .catch((result) => reject(result.data))
+    })
+  }
+  getHour () {
+    let time =new Date()
+    let hour = time.getHours() < 10 ? '0' + time.getHours() : time.getHours()
+    let minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()
+    let seconds = time.getSeconds() < 10 ? '0' + time.getSeconds() : time.getSeconds()
+
+    let currentHour = hour + ':' + minutes + ':' + seconds
+    return currentHour
+  }
+
   render () {
     return (<div>
-        <h4>{'Bienvenido ' + this.props.name}</h4>
+        <h4>{'Bienvenido ' + this.props.business}</h4>
         <div id={'player'} />
       </div>)
   }
