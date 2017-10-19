@@ -13,11 +13,11 @@ export default class Home extends Component {
     youtube.init(() => {
       this.getAdsByHour()
       .then((result) => {
-        if (result.length > 0) {
+        if (result) {
           youtube.createPlayer('player', {
           width: '640',
           height: '360',
-          videoId: result[0].descripcion,
+          videoId: result.descripcion,
           playerVars: { 'autoplay': 1, 'controls': 1 },
           events: {
               'onStateChange': onPlayerStateChange
@@ -29,10 +29,47 @@ export default class Home extends Component {
               document.location.href = 'https://www.google.com.do'
             }
           }
+        } else {
+
+          this.getCommerce(this.props.business)
+          .then((result) => {
+            youtube.createPlayer('player', {
+            width: '640',
+            height: '360',
+            videoId: result.nombredefaul,
+            playerVars: { 'autoplay': 1, 'controls': 1 },
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+            })
+
+            function onPlayerStateChange(event) {
+              if (event.data == 0) {
+                document.location.href = 'https://www.google.com.do'
+              }
+            }
+          })
         }
       })
     })
 
+  }
+  getCommerce (id) {
+    let options = {
+      method: 'GET',
+      url: '/api/business',
+      json: true,
+      params: {id}
+    }
+
+    return new Promise((resolve, reject) => {
+      request(options)
+      .then((result) => {
+        console.log(result)
+        resolve(result.data[0])
+      })
+      .catch((error) => reject(error))
+    })
   }
 
   getAdsByHour () {
@@ -52,8 +89,8 @@ export default class Home extends Component {
 
     return new Promise(function(resolve, reject) {
       request(options)
-      .then((result) =>  resolve(result.data))
-      .catch((result) => reject(result.data))
+      .then((result) =>  resolve(result.data[0]))
+      .catch((error) => reject(error))
     })
   }
   getHour () {
