@@ -54,6 +54,21 @@ class Connection {
     })
 
   }
+
+  getBusiness (business) {
+    let connection = this.connection
+
+    let query = `SELECT * FROM empresas WHERE empresas.id = '${business.id}'`
+
+    return new Promise(function(resolve, reject) {
+      connection.query(query,(error, results) => {
+      if (error) return reject(error)
+      resolve(results)
+      })
+    })
+
+  }
+
   saveCommercial (commercial) {
     let connection = this.connection
     return new Promise((resolve, reject) =>
