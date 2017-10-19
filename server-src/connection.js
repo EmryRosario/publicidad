@@ -55,19 +55,7 @@ class Connection {
 
   }
 
-  getBusiness (business) {
-    let connection = this.connection
 
-    let query = `SELECT * FROM empresas WHERE empresas.id = '${business.id}'`
-
-    return new Promise(function(resolve, reject) {
-      connection.query(query,(error, results) => {
-      if (error) return reject(error)
-      resolve(results)
-      })
-    })
-
-  }
 
   saveCommercial (commercial) {
     let connection = this.connection
@@ -105,10 +93,14 @@ class Connection {
       })}
     )
   }
-  getBusiness () {
+  getBusiness (business) {
+    let condition = ''
+    if (business.id ) {
+      condition = ` AND empresas.id = ${business.id}`
+    }
     let connection = this.connection
     return new Promise(function(resolve, reject) {
-      connection.query(`SELECT * FROM empresas WHERE estado=1`, function (error, results, fields) {
+      connection.query(`SELECT * FROM empresas WHERE estado=1 ${condition}`, function (error, results, fields) {
         if (error) return reject(error)
         resolve(results)
       })

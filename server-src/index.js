@@ -31,7 +31,7 @@ app.get('/api/advertisements', (req, res) => {
 })
 
 app.get('/api/business', (req, res) => {
-  connection.getBusiness()
+  connection.getBusiness(req.query)
   .then((result) => {
     res.json(result)
   })
