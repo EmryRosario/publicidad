@@ -6,11 +6,17 @@ export default class Home extends Component {
   constructor (props) {
     super(props)
     this.getAdsByHour = this.getAdsByHour.bind(this)
+    this.playVideo = this.playVideo.bind(this)
   }
 
   componentDidMount () {
 
-    youtube.init(() => {
+    this.playVideo()
+  }
+
+  playVideo () {
+    return new Promise((resolve, reject) => {
+      youtube.init(() => {
       this.getAdsByHour()
       .then((result) => {
         if (result) {
@@ -50,9 +56,11 @@ export default class Home extends Component {
             }
           })
         }
+      resolve(true)
       })
+      .catch((error) => reject(error))
     })
-
+    })
   }
   getCommerce (id) {
     let options = {
