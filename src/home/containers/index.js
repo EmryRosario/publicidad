@@ -5,61 +5,69 @@ import request from 'axios'
 export default class Home extends Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      image: null
+    }
+
     this.getAdsByHour = this.getAdsByHour.bind(this)
-    this.playVideo = this.playVideo.bind(this)
+    this.playCommercial = this.playCommercial.bind(this)
+    this.setImage = this.setImage.bind(this)
   }
 
   componentDidMount () {
-
-    this.playVideo()
-  }
-
-  playVideo () {
-    return new Promise((resolve, reject) => {
-      youtube.init(() => {
+      let commercial = {}
       this.getAdsByHour()
       .then((result) => {
         if (result) {
-          youtube.createPlayer('player', {
-          width: '640',
-          height: '360',
-          videoId: result.descripcion,
-          playerVars: { 'autoplay': 1, 'controls': 1 },
-          events: {
-              'onStateChange': onPlayerStateChange
-          }
+          commercial.description = result.descripcion
+          commercial.type = result.tipo
+          this.playCommercial(commercial)
+        } else {
+          this.getCommerce(this.props.business)
+          .then((result) => {
+            commercial.description = result.nombredefaul
+            commercial.type = result.tipodefault
+            this.playCommercial(commercial)
           })
+        }
 
-          function onPlayerStateChange(event) {
+
+      })
+  }
+
+playCommercial (commercial) {
+  switch (commercial.type) {
+    case 1:
+      this.playVideo({description: commercial.description})
+      break;
+    case 3:
+      this.setImage(commercial.description)
+      break;
+
+  }
+}
+setImage (image) {
+  this.setState({
+    image
+  })
+  setTimeout(() => document.location.href = 'https://www.google.com.do', 10000)
+}
+  playVideo (video) {
+    youtube.init(() => {
+      youtube.createPlayer('player', {
+      width: '640',
+      height: '360',
+      videoId: video.description,
+      playerVars: { 'autoplay': 1, 'controls': 1 },
+      events: {
+          'onStateChange': (event) => {
             if (event.data == 0) {
               document.location.href = 'https://www.google.com.do'
             }
           }
-        } else {
-
-          this.getCommerce(this.props.business)
-          .then((result) => {
-            youtube.createPlayer('player', {
-            width: '640',
-            height: '360',
-            videoId: result.nombredefaul,
-            playerVars: { 'autoplay': 1, 'controls': 1 },
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
-            })
-
-            function onPlayerStateChange(event) {
-              if (event.data == 0) {
-                document.location.href = 'https://www.google.com.do'
-              }
-            }
-          })
-        }
-      resolve(true)
+      }
       })
-      .catch((error) => reject(error))
-    })
     })
   }
   getCommerce (id) {
@@ -114,7 +122,9 @@ export default class Home extends Component {
   render () {
     return (<div>
         <h4>{'Bienvenido ' + this.props.business}</h4>
-        <div id={'player'} />
+        <div id={'player'}> {
+          this.state.image ? (<img className={'img-responsive'} src={this.state.image}></img>) : null
+        }</div>
       </div>)
   }
 }
