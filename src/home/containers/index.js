@@ -7,7 +7,19 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-      image: null
+      image: null,
+      url: null,
+      likeButton: (props) => (<div>
+        <div id="fb-root" />
+        <div className="fb-like" data-href={props.url}
+         data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="false" />
+      </div>),
+      facebookHeader: (props) => (<div className="fb-page" data-href={props.url}
+       data-tabs="timeline" data-small-header="false" data-adapt-container-width="true"
+        data-hide-cover="false" data-show-facepile="true">
+        <blockquote cite={props.url}
+         className="fb-xfbml-parse-ignore">
+         </blockquote></div>)
     }
 
     this.getAdsByHour = this.getAdsByHour.bind(this)
@@ -16,6 +28,7 @@ export default class Home extends Component {
   }
 
   componentDidMount () {
+
       let commercial = {}
       this.getAdsByHour()
       .then((result) => {
@@ -44,8 +57,13 @@ playCommercial (commercial) {
     case 3:
       this.setImage(commercial.description)
       break;
+    case 4:
+    this.setState({url: commercial.description})
+    break;
 
   }
+
+
 }
 setImage (image) {
   this.setState({
@@ -124,7 +142,15 @@ setImage (image) {
         <h4>{'Bienvenido ' + this.props.business}</h4>
         <div id={'player'}> {
           this.state.image ? (<img className={'img-responsive'} src={this.state.image}></img>) : null
-        }</div>
-      </div>)
+        }
+        {
+          this.state.url ? (<div>
+            <this.state.likeButton url={this.state.url} />
+            <this.state.facebookHeader url={this.state.url} />
+          </div>) : null
+        }
+        </div>
+       </div>
+      )
   }
 }

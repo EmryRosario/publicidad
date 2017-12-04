@@ -1,3 +1,4 @@
+import '../sdk-fb'
 import page from 'page'
 import React from 'react'
 import reactDOM from 'react-dom'
