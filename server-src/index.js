@@ -50,6 +50,14 @@ app.post('/api/commercial', (req, res) => {
   .catch((error) => res.json(error))
 })
 
+app.post('/api/guest', (req, res) => {
+  let {business, commercial} = req.body
+  console.log(req.body, req.params, req.query)
+  connection.saveGuest(business, commercial)
+  .then(result => res.json(result))
+  .catch(error => res.json(error))
+})
+
 app.put('/api/commercial', (req, res) => {
   let commercial = req.body
   connection.updateCommercial(commercial)

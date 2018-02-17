@@ -71,7 +71,20 @@ class Connection {
       })}
     )
   }
+  saveGuest(business, commercial) {
+    let connection = this.connection
 
+    return new Promise ((resolve, reject) => {
+      let query = `INSERT INTO estadisticas (idempresa, hora, fecha, idanuncio) VALUES
+                (${business}, time(now()), date(now()), ${commercial.id})
+                `
+      console.log(query)
+      connection.query(query, (err, results) => {
+        if (err) return reject(err)
+        return resolve(results)
+      })
+    })
+  }
   updateCommercial(commercial) {
     let connection = this.connection
     return new Promise((resolve, reject) =>

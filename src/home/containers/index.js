@@ -25,6 +25,7 @@ export default class Home extends Component {
     this.getAdsByHour = this.getAdsByHour.bind(this)
     this.playCommercial = this.playCommercial.bind(this)
     this.setImage = this.setImage.bind(this)
+    this.saveGuest = this.saveGuest.bind(this)
   }
 
   componentDidMount () {
@@ -35,6 +36,8 @@ export default class Home extends Component {
         if (result) {
           commercial.description = result.descripcion
           commercial.type = result.tipo
+          commercial.id = result.id
+
           this.playCommercial(commercial)
         } else {
           this.getCommerce(this.props.business)
@@ -50,6 +53,7 @@ export default class Home extends Component {
   }
 
 playCommercial (commercial) {
+  this.saveGuest(commercial)
   switch (commercial.type) {
     case 1:
       this.playVideo({description: commercial.description})
@@ -62,8 +66,20 @@ playCommercial (commercial) {
     break;
 
   }
+}
 
-
+saveGuest (commercial) {
+  let options = {
+    method: 'POST',
+    url: '/api/guest',
+    json: true,
+    data: {
+      business: this.props.business,
+      commercial
+    }
+  }
+  console.log(options)
+  request(options)
 }
 setImage (image) {
   this.setState({
