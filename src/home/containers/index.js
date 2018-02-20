@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import youtube from 'youtube-iframe-player'
 import request from 'axios'
+import {Helmet} from 'react-helmet'
+import '../styles/index.css'
 
 export default class Home extends Component {
   constructor (props) {
@@ -155,9 +157,11 @@ setImage (image) {
 
   render () {
     return (<div>
-        <h4>{'Bienvenido ' + this.props.business}</h4>
-        <div id={'player'}> {
-          this.state.image ? (<img className={'img-responsive'} src={this.state.image}></img>) : null
+        <div id={'player'}>
+          <Helmet meta={[{ name: 'viewport', content: 'width=device-width, maximum-scale=1' }]} />
+
+        {
+          this.state.image ? (<img className={'img-responsive img'} src={this.state.image}></img>) : null
         }
         {
           this.state.url ? (<div>
